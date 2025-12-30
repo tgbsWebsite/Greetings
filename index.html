@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year Card Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            color: #1a3d4d;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+             font-family: "Great Vibes", cursive;
+              font-weight: 400;
+  font-style: normal;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #2180a2;
+            font-size: 32px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.4fr 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2180a2;
+            box-shadow: 0 0 0 3px rgba(33, 128, 162, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #2180a2;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #1a6a8a;
+        }
+
+        .preview-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .preview-section h2 {
+            margin-top: 0;
+            color: #2180a2;
+        }
+
+        .canvas-wrapper {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .preview-placeholder {
+            padding: 50px 40px;
+            color: #999;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background: #c0152f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #a01028;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Happy New Year Card Generator</h1>
+            <p>Create personalized New Year greeting cards</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>Your Details</h2>
+
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="designation">Designation *</label>
+                    <input type="text" id="designation" placeholder="e.g., Senior Manager">
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organization *</label>
+                    <select id="organization">
+                        <option value="">Select organization</option>
+                        <option value="TGBS">TGBS - Thakur Global Business School</option>
+                        <option value="TIMSCDR">TIMSCDR</option>
+                        <option value="TCET">TCET</option>
+                        <option value="TIMSR">TIMSR</option>
+                        <option value="TSPDC">TSPDC</option>
+                        <option value="TSAP">TSAP</option>
+                    </select>
+                </div>
+
+                <button class="btn" id="generateBtn">Generate Card</button>
+            </div>
+
+            <div class="preview-section">
+                <h2>PREVIEW</h2>
+                <div id="cardPreview" class="preview-placeholder">
+                    Select an organization and fill in your details to generate the card
+                </div>
+                <div class="btn-group" id="downloadGroup" style="display: none;">
+                    <button class="btn-secondary" id="downloadJpgBtn">📥 Download Image</button>
+                    <button class="btn-secondary" id="recreateBtn">🔄 Recreate Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Organization-specific templates
+        const orgTemplates = {
+            TGBS: './assets/templates/tgbs.jpg',
+            TIMSCDR: './assets/templates/timscdr.jpg',
+            TCET: './assets/templates/tcet.jpg',
+            TIMSR: './assets/templates/timsr.jpg',
+            TSPDC: './assets/templates/tspdc.jpg',
+            TSAP: './assets/templates/tsap.jpg'
+        };
+
+        const nameInput = document.getElementById('name');
+        const designationInput = document.getElementById('designation');
+        const organizationSelect = document.getElementById('organization');
+        const generateBtn = document.getElementById('generateBtn');
+        const cardPreview = document.getElementById('cardPreview');
+        const downloadGroup = document.getElementById('downloadGroup');
+        const downloadJpgBtn = document.getElementById('downloadJpgBtn');
+        const recreateBtn = document.getElementById('recreateBtn');
+
+        let currentCanvas = null;
+
+        generateBtn.addEventListener('click', generateCard);
+
+        function generateCard() {
+            const name = nameInput.value.trim();
+            const designation = designationInput.value.trim();
+            const organization = organizationSelect.value;
+
+            if (!name || !designation || !organization) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const templatePath = orgTemplates[organization];
+            if (!templatePath) {
+                alert('Template not found for selected organization');
+                return;
+            }
+
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+
+                // Draw template
+                ctx.drawImage(img, 0, 0);
+
+                // Add name text
+                // Text positioning
+                const nameY = canvas.height - 280;
+                const gap = 80;
+
+                // NAME
+                ctx.fillStyle = '#0c2e73';
+                ctx.font = '500 100px Oswald, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+                ctx.shadowBlur = 2;
+                ctx.fillText(name.toUpperCase(), canvas.width / 2, nameY);
+
+                // DESIGNATION
+                ctx.fillStyle = '#0c2e73';
+                ctx.font = '400 70px Oswald, sans-serif';
+                ctx.fillText(designation.toUpperCase(), canvas.width / 2, nameY + gap);
+
+                // ORGANIZATION NAME
+                ctx.fillStyle = '#0c2e73';
+                ctx.font = '400 50px Oswald, sans-serif';
+                ctx.fillText(organization.toUpperCase(), canvas.width / 2, nameY + gap * 2);
+
+
+
+
+                currentCanvas = canvas;
+                displayPreview(canvas);
+            };
+            img.src = templatePath;
+        }
+
+        function displayPreview(canvas) {
+            cardPreview.innerHTML = '';
+            const canvasWrapper = document.createElement('div');
+            canvasWrapper.className = 'canvas-wrapper';
+            canvasWrapper.appendChild(canvas);
+            cardPreview.appendChild(canvasWrapper);
+            downloadGroup.style.display = 'flex';
+        }
+
+        downloadJpgBtn.addEventListener('click', () => {
+            if (currentCanvas) {
+                downloadCanvas(currentCanvas, 'new-year-card.jpg', 'image/jpeg');
+            }
+        });
+
+        recreateBtn.addEventListener('click', () => {
+            cardPreview.innerHTML = '<div class="preview-placeholder">Select an organization and fill in your details to generate the card</div>';
+            downloadGroup.style.display = 'none';
+            currentCanvas = null;
+        });
+
+        function downloadCanvas(canvas, filename, format) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL(format, 0.95);
+            link.click();
+        }
+
+    </script>
+</body>
+
+</html>
