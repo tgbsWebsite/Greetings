@@ -14,9 +14,9 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=wand_shine" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Using your variable names but updated for the Gold/Professional theme */
@@ -31,6 +31,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            caret-color: transparent;
         }
 
         body {
@@ -80,19 +81,36 @@
 
         .header {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 28px 20px 36px;
+
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
+
         .header h1 {
-            /* font-family: 'Great Vibes'; */
-            margin: 0 0 10px 0;
+            margin: 0 auto 14px;
+            max-width: 900px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            text-align: center;
+
+            font-size: 64px;
+            line-height: 1.1;
+            font-weight: 700;
+
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 64px;
-            filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
-              text-align: center;
+
+            letter-spacing: -0.5px;
+            filter: none;
         }
+
 
         .header p {
             font-family: 'Playfair Display', serif;
@@ -100,6 +118,9 @@
             color: #64748b;
             font-size: 1.2rem;
             letter-spacing: 0.5px;
+
+            max-width: 520px;
+            margin: 0 auto;
         }
 
         .main-content {
@@ -226,13 +247,22 @@
             background: #f8fafc;
             border-radius: 12px;
             border: 2px dashed #cbd5e1;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            /* Responsive height */
+            min-height: 280px;
+            /* mobile safety */
+            max-height: 100%;
+            height: auto;
+
             overflow: hidden;
             margin-bottom: 20px;
             position: relative;
         }
+
 
         canvas {
             max-width: 100%;
@@ -313,14 +343,19 @@
 
         /* Outer Section Container */
         .preview-section {
-            background: #FFFFFF;
+            background: #ffffff;
             border-radius: 12px;
             padding: 24px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-light);
 
-            /* FIX HEIGHT */
-            height: 1400px;
+            /* Responsive height */
+            min-height: 320px;
+            /* mobile safety */
+            height: 70vh;
+            /* natural scaling */
+            max-height: 100dvh;
+            /* mobile-safe viewport */
         }
 
         /* Header Styling */
@@ -350,8 +385,13 @@
             border-radius: 12px;
             padding: 20px;
 
-            /* FIXED SIZE */
-            height: 1400px;
+            /* Responsive height */
+            min-height: 280px;
+            /* small screens */
+            height: 60vh;
+            /* main scaling */
+            max-height: 100dvh;
+            /* mobile-safe full height */
 
             display: flex;
             align-items: center;
@@ -360,6 +400,25 @@
             border: 1px dashed #cbd5e1;
             overflow: hidden;
         }
+
+        @media (min-width: 1024px) {
+            .preview-section {
+                height: 92vh;
+                /* was 85vh */
+                min-height: 640px;
+                /* was 540px */
+                max-height: 100dvh;
+            }
+
+            #cardPreview.preview-placeholder {
+                height: 85vh;
+                /* was 75vh */
+                min-height: 560px;
+                /* was 480px */
+                max-height: 100%;
+            }
+        }
+
 
 
 
@@ -456,7 +515,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 Sending good vibes from <br/> TEG Marketing Team</h1>
+            <h1>🎉 Sending good vibes from <br /> TEG Marketing Team</h1>
             <p>Click → Personalise → Download → Share</p>
         </div>
 
@@ -481,12 +540,16 @@
                     <label for="organization">Organization *</label>
                     <select id="organization">
                         <option value="">Select organization</option>
-                        <option value="TGBS">TGBS</option>
-                        <option value="TIMSCDR">TIMSCDR</option>
                         <option value="TCET">TCET</option>
+                        <option value="TIMSCDR">TIMSCDR</option>
+
+
+
                         <option value="TIMSR">TIMSR</option>
-                        <option value="TSPDC">TSPDC</option>
                         <option value="TSAP">TSAP</option>
+                        <option value="TGBS">TGBS</option>
+                        <option value="TSPDC">TSPDC</option>
+
                     </select>
                 </div>
                 <button class="btn" id="generateBtn">
