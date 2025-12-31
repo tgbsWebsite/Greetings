@@ -81,7 +81,7 @@
 
         .header {
             text-align: center;
-            padding: 28px 20px 36px;
+            padding: 20px 20px 20px;
 
             max-width: 1100px;
             margin: 0 auto;
@@ -553,14 +553,59 @@
 .toast .material-icons {
     color: #facc15; /* Matching your gold theme */
 }
+
+.header h1 {
+    display: flex;
+    flex-direction: column; /* Stacks the icon, line 1, and line 2 */
+    align-items: center;    /* Centers everything horizontally */
+    justify-content: center;
+    gap: 8px;              /* Space between the lines */
+    
+    margin: 0 auto 14px;
+    max-width: 900px;
+    text-align: center;
+
+    font-size: 56px;        /* Slightly adjusted for better balance */
+    line-height: 1.1;
+    font-weight: 700;
+    
+    /* Apply the gold gradient to the text */
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    letter-spacing: -1px;
+}
+
+/* Specifically target the second line to ensure it sits perfectly */
+.h1-line-2 {
+    display: block;         /* Forces it onto its own line */
+    font-size: 64px;        /* Makes the brand/team name slightly more prominent */
+    margin-top: 4px;
+    font-weight: 800;
+}
+
+/* Adjust the emoji size so it doesn't look tiny next to big text */
+.header h1::before {
+    /* If you prefer to handle the emoji via CSS, otherwise it follows h1 size */
+    font-size: 50px;
+    margin-bottom: 10px;
+}
     </style>
 </head>
 
 <body>
     <div class="container">
-       <h1>🎉 Sending good vibes from <br /> TEG Marketing Team</h1>
+        <div class="header">
+         <div class="header">
+    <h1>
+        <span>🎉 Sending good vibes from</span>
+        <span class="h1-line-2">TEG Marketing Team</span>
+    </h1>
+    <p>Click → Personalise → Download → Share</p>
+</div>
 
-            <p>Click → Personalise → Download → Share</p>
+         
         </div>
 
         <div class="main-content">
