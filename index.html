@@ -681,47 +681,45 @@
         </div>
 
         <div class="main-content">
-            <div class="form-section">
-                <h2 class="form-title">
-                    <span class="material-icons title-icon">edit_note</span>
-                    Your Details
-                </h2>
+          <div class="form-section">
+    <h2 class="form-title">
+        <span class="material-icons title-icon">edit_note</span>
+        Your Details
+    </h2>
 
-                <div class="form-group">
-                    <label for="name">Full Name *</label>
-                    <input type="text" id="name" placeholder="Enter your name">
-                </div>
+    <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="designation">Designation *</label>
-                    <input type="text" id="designation" placeholder="e.g., Professor, Associate Professor">
-                </div>
+    <div class="form-group">
+        <label for="designation">Designation *</label>
+        <input type="text" id="designation" placeholder="e.g., Professor, Associate Professor" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="organization">Organization *</label>
-                    <select id="organization">
-                        <option value="">Select organization</option>
-                        <option value="TCET">TCET</option>
-                        <option value="TIMSCDR">TIMSCDR</option>
+    <div class="form-group">
+        <label for="organization">Organization *</label>
+        <select id="organization" required>
+            <option value="">Select organization</option>
+            <option value="TCET">TCET</option>
+            <option value="TIMSCDR">TIMSCDR</option>
+            <option value="TIMSR">TIMSR</option>
+            <option value="TSAP">TSAP</option>
+            <option value="TGBS">TGBS</option>
+            <option value="TSPDC">TSPDC</option>
+        </select>
+    </div>
 
+    <button class="btn" id="generateBtn">
+        <span class="material-icons">auto_fix_high</span>
+        Generate Card
+    </button>
 
-
-                        <option value="TIMSR">TIMSR</option>
-                        <option value="TSAP">TSAP</option>
-                        <option value="TGBS">TGBS</option>
-                        <option value="TSPDC">TSPDC</option>
-
-                    </select>
-                </div>
-                <button class="btn" id="generateBtn">
-                    <span class="material-icons">auto_fix_high</span>
-                    Generate Card
-                </button>
-                <div id="toast" class="toast">
-    <span class="material-icons">check_circle</span>
-    Card generated successfully!
+    <div id="toast" class="toast">
+        <span class="material-icons">check_circle</span>
+        Card generated successfully!
+    </div>
 </div>
-            </div>
             <div class="preview-section">
                 <div class="preview-header">
                     <span class="material-icons">visibility</span>
@@ -879,25 +877,36 @@ document.getElementById('generateBtn').addEventListener('click', function() {
         toast.className = toast.className.replace("show", "");
     }, 3000);
 });
-document.getElementById('generateBtn').addEventListener('click', () => {
-    // 1. Fire Confetti (Two-side cannon effect)
+document.getElementById('generateBtn').addEventListener('click', function() {
+    // 1. Grab the input values
+    const name = document.getElementById('name').value.trim();
+    const designation = document.getElementById('designation').value.trim();
+    const organization = document.getElementById('organization').value;
+
+    // 2. Validation Check
+    if (name === "" || designation === "" || organization === "") {
+        alert("Please fill in all required fields (*) before generating your card.");
+        return; // Stop the function here
+    }
+
+    // 3. SUCCESS: If all fields are filled, trigger effects
+    
+    // --- Colorful Confetti Cannon ---
     const duration = 3 * 1000;
     const end = Date.now() + duration;
 
     (function frame() {
         confetti({
-            particleCount: 3,
+            particleCount: 5,
             angle: 60,
             spread: 55,
-            origin: { x: 0 },
-         
+            origin: { x: 0, y: 0.6 }
         });
         confetti({
-            particleCount: 3,
+            particleCount: 5,
             angle: 120,
             spread: 55,
-            origin: { x: 1 },
-           
+            origin: { x: 1, y: 0.6 }
         });
 
         if (Date.now() < end) {
@@ -905,10 +914,17 @@ document.getElementById('generateBtn').addEventListener('click', () => {
         }
     }());
 
-    // 2. Show Toast
+    // --- Show Toast Message ---
     const toast = document.getElementById("toast");
     toast.classList.add("show");
-    setTimeout(() => { toast.classList.remove("show"); }, 3000);
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+
+    // 4. (Optional) Proceed with your card generation logic here
+    console.log("Generating card for:", name, designation, organization);
 });
     </script>
 </body>
