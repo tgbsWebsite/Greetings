@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             /* Using your variable names but updated for the Gold/Professional theme */
@@ -580,7 +582,7 @@
 /* Specifically target the second line to ensure it sits perfectly */
 .h1-line-2 {
     display: block;         /* Forces it onto its own line */
-    font-size: 50px;        /* Makes the brand/team name slightly more prominent */
+    font-size: 64px;        /* Makes the brand/team name slightly more prominent */
     margin-top: 4px;
     font-weight: 800;
 }
@@ -591,6 +593,60 @@
     font-size: 50px;
     margin-bottom: 10px;
 }
+:root {
+    /* Multi-stop gradient for the 'glitter' slide effect */
+    --glitter-gradient: linear-gradient(
+        to right, 
+        #bf953f 0%, 
+        #fcf6ba 20%, 
+        #b38728 40%, 
+        #fcf6ba 60%, 
+        #bf953f 80%,
+        #fcf6ba 100%
+    );
+}
+
+
+.vibes-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 58px;
+    font-weight: 400;
+    margin-bottom: -15px;
+}
+
+.h1-line-2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
+
+/* Toast Styling */
+.toast {
+    visibility: hidden;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.toast.show {
+    visibility: visible;
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; bottom: 10px; }
+    to { opacity: 1; bottom: 30px; }
+}
     </style>
 </head>
 
@@ -599,7 +655,7 @@
         <div class="header">
          <div class="header">
     <h1>
-        <span>🎉 Sending good vibes from</span>
+        <span class="font-family: "">🎉 Sending good vibes from</span>
         <span class="h1-line-2">TEG Marketing Team</span>
     </h1>
     <p>Click → Personalise → Download → Share</p>
@@ -806,6 +862,37 @@ document.getElementById('generateBtn').addEventListener('click', function() {
     setTimeout(function() {
         toast.className = toast.className.replace("show", "");
     }, 3000);
+});
+document.getElementById('generateBtn').addEventListener('click', () => {
+    // 1. Fire Confetti (Two-side cannon effect)
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+         
+        });
+        confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+           
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+
+    // 2. Show Toast
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+    setTimeout(() => { toast.classList.remove("show"); }, 3000);
 });
     </script>
 </body>
