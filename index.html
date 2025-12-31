@@ -509,13 +509,61 @@
             /* Gold color matching the theme */
             font-size: 24px;
         }
+        /* Toast Container */
+.toast {
+    visibility: hidden;
+    min-width: 280px;
+    background-color: #1e293b; /* Dark slate */
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    font-family: 'Inter', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Show state */
+.toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations */
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
+}
+
+/* Toast Icon Color */
+.toast .material-icons {
+    color: #facc15; /* Matching your gold theme */
+}
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 Sending good vibes from <br /> TEG Marketing Team</h1>
+           <h1>
+  🎉 Sending good vibes from
+  <span class="h1-line-2">TEG Marketing Team</span>
+</h1>
+
             <p>Click → Personalise → Download → Share</p>
         </div>
 
@@ -556,6 +604,10 @@
                     <span class="material-icons">auto_fix_high</span>
                     Generate Card
                 </button>
+                <div id="toast" class="toast">
+    <span class="material-icons">check_circle</span>
+    Card generated successfully!
+</div>
             </div>
             <div class="preview-section">
                 <div class="preview-header">
@@ -702,7 +754,18 @@
             link.href = canvas.toDataURL(format, 0.95);
             link.click();
         }
+document.getElementById('generateBtn').addEventListener('click', function() {
+    // 1. Your existing card generation logic goes here...
 
+    // 2. Trigger the Toast
+    const toast = document.getElementById("toast");
+    toast.className = "toast show";
+
+    // 3. Remove the toast after 3 seconds
+    setTimeout(function() {
+        toast.className = toast.className.replace("show", "");
+    }, 3000);
+});
     </script>
 </body>
 
