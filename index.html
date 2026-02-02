@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year Card Generator</title>
+    <title>Certificate Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -671,8 +671,8 @@
         <div class="header">
          <div class="header">
     <h1>
-        <span class="font-family: "">🎉 Sending good vibes from</span>
-        <span class="h1-line-2">TEG Marketing Team</span>
+        <span class="font-family: ">Management Development Program (MDP)</span>
+        <!-- <span class="h1-line-2">(MDP)</span> -->
     </h1>
     <p>Click → Personalise → Download → Share</p>
 </div>
@@ -693,20 +693,11 @@
     </div>
 
     <div class="form-group">
-        <label for="designation">Designation *</label>
-        <input type="text" id="designation" placeholder="e.g., Professor, Associate Professor" required>
-    </div>
-
-    <div class="form-group">
-        <label for="organization">Organization *</label>
+        <label for="organization">Template *</label>
         <select id="organization" required>
-            <option value="">Select organization</option>
-            <option value="TCET">TCET</option>
-            <option value="TIMSCDR">TIMSCDR</option>
-            <option value="TIMSR">TIMSR</option>
-            <option value="TSAP">TSAP</option>
-            <option value="TGBS">TGBS</option>
-            <option value="TSPDC">TSPDC</option>
+            <option value="">Select Certificate</option>
+            <option value="mdp1">Linkedin for leaders</option>
+            <option value="mdp2">Master Ai-Powered</option>
         </select>
     </div>
 
@@ -750,18 +741,13 @@
     </div>
 
     <script>
-        // Organization-specific templates
+        // Template-specific files
         const orgTemplates = {
-            TGBS: './assets/templates/tgbs.jpg',
-            TIMSCDR: './assets/templates/timscdr.jpg',
-            TCET: './assets/templates/tcet.jpg',
-            TIMSR: './assets/templates/timsr.jpg',
-            TSPDC: './assets/templates/tspdc.jpg',
-            TSAP: './assets/templates/tsap.jpeg'
+            mdp1: './assets/templates/mdp1.jpeg',
+            mdp2: './assets/templates/mdp2.jpeg'
         };
 
         const nameInput = document.getElementById('name');
-        const designationInput = document.getElementById('designation');
         const organizationSelect = document.getElementById('organization');
         const generateBtn = document.getElementById('generateBtn');
         const cardPreview = document.getElementById('cardPreview');
@@ -775,10 +761,9 @@
 
         function generateCard() {
             const name = nameInput.value.trim();
-            const designation = designationInput.value.trim();
             const organization = organizationSelect.value;
 
-            if (!name || !designation || !organization) {
+            if (!name || !organization) {
                 alert('Please fill in all required fields');
                 return;
             }
@@ -800,34 +785,20 @@
                 ctx.drawImage(img, 0, 0);
 
                 // Add name text
-                // Text positioning
-                const nameY = canvas.height - 280;
-                const gap = 90;
+                // Text positioning - moved higher to be above underline
+                const nameY = canvas.height - 1000;
 
-                // NAME
-                ctx.fillStyle = '#0c2e73';
-                ctx.font = '600 100px Didact Gothic, sans-serif';
-                ctx.textAlign = 'center';
+                // NAME ONLY
+                ctx.fillStyle = '#f27021';
+                ctx.font = '600 100px Open Sans, sans-serif';
+                ctx.textAlign = 'left';
                 ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
                 ctx.shadowBlur = 2;
                 ctx.fillText(name
                     .toLowerCase()
                     .split(' ')
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' '), canvas.width / 2, nameY);
-
-                // DESIGNATION
-                ctx.fillStyle = '#0c2e73';
-                ctx.font = '500 70px Didact Gothic, sans-serif';
-                ctx.fillText(designation.toLowerCase()
-                    .split(' ')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' '), canvas.width / 2, nameY + gap);
-
-                // ORGANIZATION NAME
-                ctx.fillStyle = '#0c2e73';
-                ctx.font = '500 50px Didact Gothic, sans-serif';
-                ctx.fillText(organization.toUpperCase(), canvas.width / 2, nameY + gap * 2);
+                    .join(' '), 830, nameY);
 
 
 
@@ -849,7 +820,7 @@
 
         downloadJpgBtn.addEventListener('click', () => {
             if (currentCanvas) {
-                downloadCanvas(currentCanvas, 'new-year-card.jpg', 'image/jpeg');
+                downloadCanvas(currentCanvas, 'Certificate.jpg', 'image/jpeg');
             }
         });
 
@@ -880,41 +851,15 @@ document.getElementById('generateBtn').addEventListener('click', function() {
 document.getElementById('generateBtn').addEventListener('click', function() {
     // 1. Grab the input values
     const name = document.getElementById('name').value.trim();
-    const designation = document.getElementById('designation').value.trim();
     const organization = document.getElementById('organization').value;
 
     // 2. Validation Check
-    if (name === "" || designation === "" || organization === "") {
+    if (name === "" || organization === "") {
         alert("Please fill in all required fields (*) before generating your card.");
         return; // Stop the function here
     }
 
-    // 3. SUCCESS: If all fields are filled, trigger effects
-    
-    // --- Colorful Confetti Cannon ---
-    const duration = 3 * 1000;
-    const end = Date.now() + duration;
-
-    (function frame() {
-        confetti({
-            particleCount: 5,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0, y: 0.6 }
-        });
-        confetti({
-            particleCount: 5,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1, y: 0.6 }
-        });
-
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-    }());
-
-    // --- Show Toast Message ---
+    // 3. Show Toast Message
     const toast = document.getElementById("toast");
     toast.classList.add("show");
     
@@ -923,8 +868,8 @@ document.getElementById('generateBtn').addEventListener('click', function() {
         toast.classList.remove("show");
     }, 3000);
 
-    // 4. (Optional) Proceed with your card generation logic here
-    console.log("Generating card for:", name, designation, organization);
+    // 4. Proceed with card generation logic
+    console.log("Generating card for:", name, organization);
 });
     </script>
 </body>
